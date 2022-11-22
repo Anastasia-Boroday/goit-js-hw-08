@@ -8,6 +8,7 @@ const player = new Player(iframeRef);
 const LOCALSTORAGE_KEY = 'videoplayer-current-time';
 const CurrentTime = localStorage.getItem(LOCALSTORAGE_KEY)
 console.log(LOCALSTORAGE_KEY);
+
 const onPlay = function (data) {
   const timeUpdate = data.seconds;
   console.log(timeUpdate);
@@ -17,14 +18,14 @@ const onPlay = function (data) {
 player.on('timeupdate', throttle(onPlay, 1000));
 
 
-player.setCurrentTime(CurrentTime).then(function(seconds) {
-  
-}).catch(function(error) {
-  switch (error.name) {
+player.setCurrentTime(JSON.parse(localStorage.getItem('videoplayer-current-time')))
+  .catch(function (error) {
+    switch (error.name) {
       case 'RangeError':
-          break;
+        break;
       default:
-          break;
-  }
-});
+        break;
+    }
+  });
+
 
